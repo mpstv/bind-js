@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>bind-js</title>
+
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+
+  <body>
+    <div id="template">
+      <input type="number" data-bind="a" />
+      <div>+</div>
+      <input type="number" data-bind="b" />
+      <div>=</div>
+      <div data-bind="result"></div>
+
+      <div data-bind="a"></div>
+      <div>+</div>
+      <div data-bind="b"></div>
+      <div>=</div>
+      <div data-bind="result"></div>
+    </div>
+
+    <script type="module">
+      import { bind } from "./bind.js";
+
+      const { proxy, destroy } = bind("template", {
+        a: 2,
+        b: 2,
+        result() {
+          return Number(this.a) + Number(this.b);
+        },
+      });
+
+      window.proxy = proxy;
+      window.destory = destroy;
+    </script>
+  </body>
+</html>
